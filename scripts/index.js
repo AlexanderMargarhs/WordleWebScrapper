@@ -1,17 +1,16 @@
-const getBrowser = require('./browser');
-const scraperController = require('./pageController');
-const getWordList = require('./readFile');
-const getWordlePage = require('./openWordle');
+const browser = require('./browser');
+const readFile = require('./readFile');
+const openWordle = require('./openWordle');
 const findWord = require('./findWord');
-const uniqueLetterWords = require('./uniqueLetterWords.js');
+const uniqueLetterWords = require('./uniqueLetterWords');
 
 (async () => 
 {
-	const browser = await getBrowser(); //Start the browser and create a browser instance.
+	const browser = await browser(); //Start the browser and create a browser instance.
 
-	const wordList = await getWordList(); // Load all the words from the txt file.
+	const wordList = await readFile(); // Load all the words from the txt file.
 	
-	const page = await getWordlePage(browser);  // Open wordle, still hangs :/.
+	const page = await openWordle(browser);  // Open wordle, still hangs :/.
 
 	try 
 	{
@@ -19,8 +18,7 @@ const uniqueLetterWords = require('./uniqueLetterWords.js');
 		
 		const uniqueWords = await uniqueLetterWords(wordList);
 		
-		console.log(uniqueLetterWords.word.length);
-		word = 'light';
+		// word = 'light';
 		console.log(`Word found: ${word}`);
 	}
 	catch (err) 
