@@ -13,7 +13,7 @@ const getBrowser = async () =>
 	  		args: ["--disable-setuid-sandbox"],
 			pipe: true,
 	  		ignoreHTTPSErrors: true,
-	  		icognito: true,
+	  		incognito: true,
 		});
 		return browser;
   	}
@@ -21,11 +21,10 @@ const getBrowser = async () =>
 	{
 		console.log("Could not create a browser instance => : ", err);
 		// Mock browser, should throw instead
-		return 
-		{
+		return {
 	  		newPage: () => ({
-			goto: () => {},
-	 		});
+				goto: () => {},
+	 		})
 		};
 	}
 };
