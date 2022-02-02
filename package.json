@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./scripts/index.js"
+    "start": "node ./main.js"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
