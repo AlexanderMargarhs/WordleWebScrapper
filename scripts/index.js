@@ -10,14 +10,16 @@ const uniqueLetterWords = require('./uniqueLetterWords.js');
 	const browser = await getBrowser(); //Start the browser and create a browser instance.
 
 	const wordList = await getWordList(); // Load all the words from the txt file.
-	console.log(wordList.words.length);
-	//const page = await getWordlePage(browser);  // Open wordle, still hangs :/.
+	
+	const page = await getWordlePage(browser);  // Open wordle, still hangs :/.
 
 	try 
 	{
-		// const words = await findWord(browser, wordList);
+		const words = await findWord(browser, wordList);
+		
 		const uniqueWords = await uniqueLetterWords(wordList);
-		// console.log(uniqueLetterWords.word.length);
+		
+		console.log(uniqueLetterWords.word.length);
 		word = 'light';
 		console.log(`Word found: ${word}`);
 	}
