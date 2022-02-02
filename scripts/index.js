@@ -1,12 +1,27 @@
-const browserObject = require('./browser');
-const scraperController = require('./pageController');
-const textOutput = require('./readFile');
+const getBrowser = require('./browser');
+// const scraperController = require('./pageController');
+const getWordList = require('./readFile');
+const getWordlePage = require('./openWordle');
+const findWord = require('./findWord');
+const path = require('path');
 
-// Load all the words from the txt file.
-let words = textOutput.readFile();
 
-//Start the browser and create a browser instance
-let browserInstance = browserObject.startBrowser();
+(async () => 
+{
+	const browser = await getBrowser(); //Start the browser and create a browser instance.
 
-// Pass the browser instance to the scraper controller
-scraperController(browserInstance)
+	const wordList = await getWordList(); // Load all the words from the txt file.
+
+	const page = await getWordlePage(browser);  // Open wordle, still hangs :/.
+
+	try 
+	{
+		const word = await findWord(browser, wordList);
+		word = 'light';
+		console.log(`Word found: ${word}`);
+	}
+	catch (err) 
+	{
+		console.error(err);
+	}
+})();

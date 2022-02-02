@@ -1,14 +1,6 @@
-var fs = require("fs");
+const fs = require("fs");
 
-const textOutput = {
-    filename: "",
-    async readFile()
-    {
-        console.log("Loading words......");
-        var text = fs.readFileSync("../wordle_words.txt").toString('utf-8').split('\n');
-        
-        return text;
-    }
-}
+const wordList = async () =>
+	JSON.parse(fs.readFileSync("../wordle_words.json", 'utf8'))
 
-module.exports = textOutput;
+module.exports = wordList;
