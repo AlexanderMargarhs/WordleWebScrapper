@@ -1,5 +1,5 @@
 const getBrowser = require('./browser');
-// const scraperController = require('./pageController');
+const scraperController = require('./pageController');
 const getWordList = require('./readFile');
 const getWordlePage = require('./openWordle');
 const findWord = require('./findWord');
