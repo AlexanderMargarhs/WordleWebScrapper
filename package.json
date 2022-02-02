@@ -1,9 +1,10 @@
 {
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-  "start": "node ./scripts/index.js"
+    "start": "node ./scripts/index.js"
   },
   "dependencies": {
+    "fs": "^0.0.1-security",
     "puppeteer": "^13.1.3"
   }
 }
