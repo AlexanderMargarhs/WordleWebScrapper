@@ -1,4 +1,7 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require('puppeteer-extra')
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+
+puppeteer.use(StealthPlugin())
 
 const getBrowser = async () => 
 {
@@ -8,6 +11,7 @@ const getBrowser = async () =>
 		const browser = await puppeteer.launch({
 	  		headless: true,
 	  		args: ["--disable-setuid-sandbox"],
+			pipe: true,
 	  		ignoreHTTPSErrors: true,
 	  		icognito: true,
 		});

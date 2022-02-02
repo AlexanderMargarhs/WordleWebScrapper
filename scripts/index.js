@@ -3,7 +3,6 @@ const getBrowser = require('./browser');
 const getWordList = require('./readFile');
 const getWordlePage = require('./openWordle');
 const findWord = require('./findWord');
-const path = require('path');
 
 
 (async () => 
@@ -24,4 +23,5 @@ const path = require('path');
 	{
 		console.error(err);
 	}
+	await browser.close();
 })();
