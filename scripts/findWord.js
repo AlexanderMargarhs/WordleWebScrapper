@@ -1,9 +1,13 @@
-const findWord = async (browserInstance, wordList) => 
-{
-	const page = getWordlePage(browserInstance);
-	let word = "";
-  
-	
+const getUniqueLetterWords = require('./getUniqueLetterWords');
+const openWordle = require('./openWordle');
+
+
+const findWord = async (browserInstance, wordList) => {
+
+	const page = await openWordle(browserInstance);
+
+	let uniqueLetterWords = await getUniqueLetterWords(wordList);
+
 	return word;
 };
 

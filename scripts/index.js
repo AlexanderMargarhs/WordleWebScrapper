@@ -1,29 +1,20 @@
 const browser = require('./browser');
 const readFile = require('./readFile');
-const openWordle = require('./openWordle');
 const findWord = require('./findWord');
-const uniqueLetterWords = require('./uniqueLetterWords');
+const getWordlePage = require('./openWordle');
 
-(async () => 
-{
-	const browser = await browser(); //Start the browser and create a browser instance.
+(async () => {
+	const browserInstance = await browser(); //Start the browser and create a browser instance.
 
-	const wordList = await readFile(); // Load all the words from the txt file.
-	
-	const page = await openWordle(browser);  // Open wordle, still hangs :/.
+	const wordsList = await readFile(); // Load all the words from the txt file.
 
-	try 
-	{
-		const words = await findWord(browser, wordList);
-		
-		const uniqueWords = await uniqueLetterWords(wordList);
-		
-		// word = 'light';
+	try {
+		const word = await findWord(browserInstance, wordsList);
+
 		console.log(`Word found: ${word}`);
 	}
-	catch (err) 
-	{
+	catch (err) {
 		console.error(err);
 	}
-	await browser.close();
+	await browserInstance.close();
 })();
