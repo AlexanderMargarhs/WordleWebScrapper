@@ -1,7 +1,6 @@
 const browser = require('./browser');
 const readFile = require('./readFile');
 const findWord = require('./findWord');
-const getWordlePage = require('./openWordle');
 
 (async () => {
 	const browserInstance = await browser(); //Start the browser and create a browser instance.
@@ -16,5 +15,13 @@ const getWordlePage = require('./openWordle');
 	catch (err) {
 		console.error(err);
 	}
+
+	await sleep(10000);
 	await browserInstance.close();
 })();
+
+function sleep(ms) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+}

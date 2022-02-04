@@ -1,13 +1,9 @@
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer');
 
 const getBrowser = async () => {
 	try {
 		const browser = await puppeteer.launch({
-			headless: true,
-			args: ["--disable-setuid-sandbox"],
-			pipe: true,
-			ignoreHTTPSErrors: true,
-			incognito: true,
+			headless: false,
 		});
 		return browser;
 	}
