@@ -75,11 +75,6 @@ const findWord = async (browserInstance, wordList) => {
 			break;
 	}
 
-	console.log("first letters", first_row_alphabet);
-	console.log("2nd letters", second_row_alphabet);
-	console.log("3rd letters", third_row_alphabet);
-	console.log("4th letters", fourth_row_alphabet);
-	console.log("5th letters", fifth_row_alphabet);
 	if (correct_word === "true")
 		return word;
 	word = ""
