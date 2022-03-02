@@ -16,12 +16,12 @@ const findWord = require('./findWord');
 		console.error(err);
 	}
 
-	await sleep(10000);
+	await delay(5000);
 	await browserInstance.close();
 })();
 
-function sleep(ms) {
-	return new Promise((resolve) => {
-		setTimeout(resolve, ms);
+async function delay(time) {
+	return new Promise(function (resolve) {
+		setTimeout(resolve, time)
 	});
 }

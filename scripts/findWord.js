@@ -37,17 +37,16 @@ const findWord = async (browserInstance, wordList) => {
 			let data = await page.evaluate('document.querySelector("body > game-app").shadowRoot.querySelector("#board > game-row:nth-child(' + i + ')").shadowRoot.querySelector("div > game-tile:nth-child(' + (j + 1) + ')").shadowRoot.querySelector("div").getAttribute("data-state")');
 			if (data == 'present') {
 				correct_word = "false";
-				if (j == 1 && first_row_alphabet.length === 1)
+				if (j == 0 && first_row_alphabet.length > 1)
 					await remove_letter(first_row_alphabet, word.charAt(j));
-				if (j == 2 && second_row_alphabet.length === 1)
+				if (j == 1 && second_row_alphabet.length > 1)
 					await remove_letter(second_row_alphabet, word.charAt(j));
-				if (j == 3 && third_row_alphabet.length === 1)
+				if (j == 2 && third_row_alphabet.length > 1)
 					await remove_letter(third_row_alphabet, word.charAt(j));
-				if (j == 4 && fourth_row_alphabet.length === 1)
+				if (j == 3 && fourth_row_alphabet.length > 1)
 					await remove_letter(fourth_row_alphabet, word.charAt(j));
-				if (j == 5 && fifth_row_alphabet.length === 1)
+				if (j == 4 && fifth_row_alphabet.length > 1)
 					await remove_letter(fifth_row_alphabet, word.charAt(j));
-
 			}
 			else if (data == 'correct') {
 				if (j == 0)
