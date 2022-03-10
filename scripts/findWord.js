@@ -1,11 +1,13 @@
 const getWordlePage = require('./getWordlePage');
 
 const findWord = async (browserInstance, wordList) => {
-	let first_row_alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-	let second_row_alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-	let third_row_alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-	let fourth_row_alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-	let fifth_row_alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+	let first_row_alphabet = [...alphabet];
+	let second_row_alphabet = [...alphabet];
+	let third_row_alphabet = [...alphabet];
+	let fourth_row_alphabet = [...alphabet];
+	let fifth_row_alphabet = [...alphabet];
+	let letters_that_appear = [];
 
 	const page = await getWordlePage(browserInstance);
 
@@ -24,7 +26,7 @@ const findWord = async (browserInstance, wordList) => {
 
 		words = wordList;
 		possible_words = [];
-		possible_words = await getWords(regexp, words, possible_words); // Find the possible words.
+		possible_words = await getWords(regexp, words, possible_words, letters_that_appear); // Find the possible words.
 		word = await possible_words[Math.floor(Math.random() * possible_words.length)]; // Get random word.
 
 		correct_word = "true";
@@ -37,16 +39,22 @@ const findWord = async (browserInstance, wordList) => {
 			let data = await page.evaluate('document.querySelector("body > game-app").shadowRoot.querySelector("#board > game-row:nth-child(' + i + ')").shadowRoot.querySelector("div > game-tile:nth-child(' + (j + 1) + ')").shadowRoot.querySelector("div").getAttribute("data-state")');
 			if (data == 'present') {
 				correct_word = "false";
-				if (j == 0 && first_row_alphabet.length > 1)
+				if (j == 0 && first_row_alphabet.length > 1) {
 					await remove_letter(first_row_alphabet, word.charAt(j));
-				if (j == 1 && second_row_alphabet.length > 1)
+				}
+				if (j == 1 && second_row_alphabet.length > 1) {
 					await remove_letter(second_row_alphabet, word.charAt(j));
-				if (j == 2 && third_row_alphabet.length > 1)
+				}
+				if (j == 2 && third_row_alphabet.length > 1) {
 					await remove_letter(third_row_alphabet, word.charAt(j));
-				if (j == 3 && fourth_row_alphabet.length > 1)
+				}
+				if (j == 3 && fourth_row_alphabet.length > 1) {
 					await remove_letter(fourth_row_alphabet, word.charAt(j));
-				if (j == 4 && fifth_row_alphabet.length > 1)
+				}
+				if (j == 4 && fifth_row_alphabet.length > 1) {
 					await remove_letter(fifth_row_alphabet, word.charAt(j));
+				}
+				await add_letter(letters_that_appear, word.charAt(j));
 			}
 			else if (data == 'correct') {
 				if (j == 0)
@@ -80,10 +88,19 @@ const findWord = async (browserInstance, wordList) => {
 	return word;
 };
 
-async function getWords(regex, words, possible_words) {
+async function getWords(regex, words, possible_words, letters) {
 	for (let i in words) {
 		if (regex.exec(words[i]) !== null) {
-			possible_words.push(words[i]);
+			if (letters.length !== 0) {
+				for (let j = 0; j < letters.length; j++) {
+					if (words[i].includes(letters[j]) === true) {
+						possible_words.push(words[i]);
+					}
+				}
+			}
+			else {
+				possible_words.push(words[i]);
+			}
 		}
 	}
 
@@ -104,6 +121,12 @@ async function delay(time) {
 	return new Promise(function (resolve) {
 		setTimeout(resolve, time)
 	});
+}
+
+async function add_letter(arr, letter) {
+	if (!arr.includes(letter)) {
+		await arr.push(letter);
+	}
 }
 
 module.exports = findWord;
